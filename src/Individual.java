@@ -15,7 +15,7 @@ enum MutationOperator {
     ADD, DELETE, CHANGE, SHORTEN/*, CORRECT*/
 }
 
-public class Individual {
+class Individual {
 
     private ArrayList<Point2D> chromosome = new ArrayList<Point2D>();
     private double cost = 0;
@@ -53,7 +53,7 @@ public class Individual {
     }
 
     // Determines whether individual is feasible (i.e. doesn't hit obstacles)
-    public boolean isFeasible() {
+    boolean isFeasible() {
         for (Obstacle obstacle : Constants.OBSTACLES) {
             ArrayList<Line2D> boundaries = obstacle.getBoundaries();
 
@@ -79,7 +79,7 @@ public class Individual {
     }
 
     // Calculates total distance traveled
-    public double distanceTraveled() {
+    double distanceTraveled() {
         double distance = 0;
 
         for (int i = 0; i < chromosome.size() - 1; i++)
@@ -89,7 +89,7 @@ public class Individual {
     }
 
     // Determines points of collision between individual and obstacles
-    public Map<Integer, ArrayList<Point2D>> detectCollisions() {
+    Map<Integer, ArrayList<Point2D>> detectCollisions() {
         Map<Integer, ArrayList<Point2D>> collisions = new HashMap<Integer, ArrayList<Point2D>>();
 
         for (int i = 0; i < chromosome.size() - 1; i++) {
@@ -163,7 +163,7 @@ public class Individual {
     }
 
     // Calculates total distance traveled through obstacles
-    public double collisionDist() {
+    double collisionDist() {
         Map<Integer, ArrayList<Point2D>> collisionMap = detectCollisions();
         Set<Map.Entry<Integer, ArrayList<Point2D>>> collisionSet = collisionMap.entrySet();
         int offset = 0;
@@ -216,7 +216,7 @@ public class Individual {
     }
 
     // Draws path of individual on the environment
-    public void drawIndividual(DrawingPanel panel, Graphics2D g) {
+    void drawIndividual(DrawingPanel panel, Graphics2D g) {
         DecimalFormat df = new DecimalFormat("000.000");
 
         drawEnvironment(panel, g);
@@ -326,7 +326,7 @@ public class Individual {
     // Mutation Operators (Add/Delete/Change Node and Shorten/Correct the Path)
 
     // Mutates individual
-    public void mutate() {
+    void mutate() {
         MutationOperator[] mutations = MutationOperator.values();
 
         // Performs random mutation
@@ -360,43 +360,43 @@ public class Individual {
         cost();
     }
 
-    public void addNode(int index, double x, double y) {
+    void addNode(int index, double x, double y) {
         chromosome.add(index, new Point2D.Double(x, y));
         cost();
     }
 
-    public void addNode(int index, Point2D coord) {
+    void addNode(int index, Point2D coord) {
         chromosome.add(index, new Point2D.Double(coord.getX(), coord.getY()));
         cost();
     }
 
-    public void addNode(double x, double y) {
+    void addNode(double x, double y) {
         chromosome.add(new Point2D.Double(x, y));
         cost();
     }
 
-    public void addNode(Point2D coord) {
+    void addNode(Point2D coord) {
         chromosome.add(new Point2D.Double(coord.getX(), coord.getY()));
         cost();
     }
 
-    public void deleteNode(int index) {
+    void deleteNode(int index) {
         chromosome.remove(index);
         cost();
     }
 
-    public void changeNode(int index, double x, double y) {
+    void changeNode(int index, double x, double y) {
         chromosome.set(index, new Point2D.Double(x, y));
         cost();
     }
 
-    public void changeNode(int index, Point2D coord) {
+    void changeNode(int index, Point2D coord) {
         chromosome.set(index, new Point2D.Double(coord.getX(), coord.getY()));
         cost();
     }
 
     // Removes unnecessary coordinates in individual
-    public void shortenPath() {
+    void shortenPath() {
         boolean isShortest;
 
         do {
@@ -442,23 +442,23 @@ public class Individual {
 
     /* Getters */
 
-    public ArrayList<Point2D> getChromosome() {
+    ArrayList<Point2D> getChromosome() {
         return chromosome;
     }
 
-    public double getCost() {
+    double getCost() {
         return cost;
     }
 
-    public Point2D getNode(int index) {
+    Point2D getNode(int index) {
         return chromosome.get(index);
     }
 
-    public Line2D getPath(int index) {
+    Line2D getPath(int index) {
         return new Line2D.Double(chromosome.get(index), chromosome.get(index + 1));
     }
 
-    public int getLength() {
+    int getLength() {
         return chromosome.size();
     }
 }

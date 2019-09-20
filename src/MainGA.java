@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import java.text.DecimalFormat;
 
-public class MainGA {
+class MainGA {
     public static void main(String[] args) throws IOException {
         Population optimizedPop;
         String selectionMethod = "TOS";
