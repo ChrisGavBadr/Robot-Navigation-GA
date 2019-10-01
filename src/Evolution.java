@@ -13,10 +13,10 @@ enum CrossoverOperator {
     ONE_POINT, K_POINT, INTELLIGENT
 }
 
-class Evolution {
+public class Evolution {
 
     // Evolves population to next generation
-    static void evolvePopulation(Population currentGen, Population nextGen, int generation) {
+    public static void evolvePopulation(Population currentGen, Population nextGen, int generation) {
         SelectionMethod selection = SelectionMethod.TOS;
         CrossoverOperator crossover = CrossoverOperator.INTELLIGENT;
 
@@ -92,14 +92,14 @@ class Evolution {
     /* Selection Methods (RWS, SUS, LRS, TOS, TRS, and CS) */
 
     // Selects portion of the fittest individuals
-    static void performElitism(Population population, Population eliteSurvivors) {
+    public static void performElitism(Population population, Population eliteSurvivors) {
         population.quickSortPop(0, population.getSize() - 1);
         for (int i = 0; i < Constants.ELITE_SURVIVORS; i++)
             eliteSurvivors.saveIndividual(i, population.getIndividual(i));
     }
 
     // Probability of selection is ratio of individual's fitness to total fitness sum
-    static void rouletteWheelSelection(Population population, Population survivors) {
+    public static void rouletteWheelSelection(Population population, Population survivors) {
         double totalFitness = population.totalCost();
         double maxMinSum = population.getFittest().getCost() + population.getWorst().getCost();
 
@@ -119,7 +119,7 @@ class Evolution {
     }
 
     // Variant of RWS; Reduces risk of premature convergence
-    static void stochasticUniversalSampling(Population population, Population survivors) {
+    public static void stochasticUniversalSampling(Population population, Population survivors) {
         double sum = population.getFittest().getCost();
         double delta = Math.random() * population.avgCost();
         int i = Constants.ELITE_SURVIVORS;
@@ -144,7 +144,7 @@ class Evolution {
     }
 
     // Variant of RWS; Selection probability is ratio of individual's rank to total rank sum; Reduces risk of premature convergence
-    static void linearRankSelection(Population population, Population survivors) {
+    public static void linearRankSelection(Population population, Population survivors) {
         performElitism(population, survivors);
 
         for (int i = Constants.ELITE_SURVIVORS; i < population.getSize() / 2; i++) {
@@ -162,7 +162,7 @@ class Evolution {
     }
 
     // Selects fittest individual from each random group of random individuals
-    static void tournamentSelection(Population population, Population survivors) {
+    public static void tournamentSelection(Population population, Population survivors) {
         performElitism(population, survivors);
 
         for (int i = Constants.ELITE_SURVIVORS; i < population.getSize() / 2; i++) {
@@ -176,7 +176,7 @@ class Evolution {
     }
 
     // Selects first half of the fittest individuals
-    static void truncationSelection(Population population, Population survivors) {
+    public static void truncationSelection(Population population, Population survivors) {
         performElitism(population, survivors);
 
         for (int i = 0; i < population.getSize() / 2; i++)
@@ -184,7 +184,7 @@ class Evolution {
     }
 
     // Determines and performs most reliable selection method
-    static void combinedSelection(Population currentGen, Population nextGen, int generation) {
+    public static void combinedSelection(Population currentGen, Population nextGen, int generation) {
         CSMethod[] candidateMethod = CSMethod.values();
         CSMethod recommendedMethod = candidateMethod[0];
 
@@ -214,7 +214,7 @@ class Evolution {
     }
 
     // Calculates reliability of selection method; Depends on mean diversity and population quality
-    static double calcReliability(Population population, int generation, CSMethod method) {
+    public static double calcReliability(Population population, int generation, CSMethod method) {
         double highestCost = population.getFittest().getCost();
         double lowestCost = population.getWorst().getCost();
         double meanDiversity = 0;
@@ -258,7 +258,7 @@ class Evolution {
     /* Crossover Operators (1-Point, K-Point, and Intelligent) */
 
     // Swaps genes of parents over one crossover point to produce 2 offspring
-    static Individual[] onePointCrossover(Individual parent1, Individual parent2) {
+    public static Individual[] onePointCrossover(Individual parent1, Individual parent2) {
         Individual[] offspring = new Individual[2];
         offspring[0] = new Individual(false, parent2.getLength());
         offspring[1] = new Individual(false, parent1.getLength());
@@ -280,7 +280,7 @@ class Evolution {
     }
 
     // Swaps genes of parents over a random number of crossover points to produce 2 offspring
-    static Individual[] kPointCrossover(Individual parent1, Individual parent2) {
+    public static Individual[] kPointCrossover(Individual parent1, Individual parent2) {
         Individual[] offspring = new Individual[2];
         offspring[0] = new Individual(false, parent2.getLength());
         offspring[1] = new Individual(false, parent1.getLength());
@@ -329,7 +329,7 @@ class Evolution {
     }
 
     // Performs intelligent crossover to produce 1 offspring
-    static Individual intelligentCrossover(Individual parent1, Individual parent2) {
+    public static Individual intelligentCrossover(Individual parent1, Individual parent2) {
         Individual offspring = new Individual();
         boolean parent1Selected = false;
         int i = 0;

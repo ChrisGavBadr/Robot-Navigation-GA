@@ -1,7 +1,7 @@
 
 import java.text.DecimalFormat;
 
-class Population {
+public class Population {
 
     private Individual[] population;
 

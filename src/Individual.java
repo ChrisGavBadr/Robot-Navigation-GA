@@ -15,7 +15,7 @@ enum MutationOperator {
     ADD, DELETE, CHANGE, SHORTEN/*, CORRECT*/
 }
 
-class Individual {
+public class Individual {
 
     private ArrayList<Point2D> chromosome = new ArrayList<Point2D>();
     private double cost = 0;
@@ -53,7 +53,7 @@ class Individual {
     }
 
     // Determines whether individual is feasible (i.e. doesn't hit obstacles)
-    boolean isFeasible() {
+    public boolean isFeasible() {
         for (Obstacle obstacle : Constants.OBSTACLES) {
             ArrayList<Line2D> boundaries = obstacle.getBoundaries();
 
@@ -79,7 +79,7 @@ class Individual {
     }
 
     // Calculates total distance traveled
-    double distanceTraveled() {
+    public double distanceTraveled() {
         double distance = 0;
 
         for (int i = 0; i < chromosome.size() - 1; i++)
@@ -89,12 +89,11 @@ class Individual {
     }
 
     // Determines points of collision between individual and obstacles
-    Map<Integer, ArrayList<Point2D>> detectCollisions() {
+    public Map<Integer, ArrayList<Point2D>> detectCollisions() {
         Map<Integer, ArrayList<Point2D>> collisions = new HashMap<Integer, ArrayList<Point2D>>();
 
         for (int i = 0; i < chromosome.size() - 1; i++) {
             ArrayList<Point2D> collisionsInPath = detectPathCollisions(i);
-            boolean uniqueOccurrence = true;
 
             if (i != 0 && collisions.get(i - 1) != null) {
                 for (Point2D previous : collisions.get(i - 1)) {
@@ -108,9 +107,8 @@ class Individual {
                 }
             }
 
-            if (collisionsInPath.size() != 0 && uniqueOccurrence) {
+            if (collisionsInPath.size() != 0)
                 collisions.put(i, collisionsInPath);
-            }
         }
 
         return collisions;
@@ -163,7 +161,7 @@ class Individual {
     }
 
     // Calculates total distance traveled through obstacles
-    double collisionDist() {
+    public double collisionDist() {
         Map<Integer, ArrayList<Point2D>> collisionMap = detectCollisions();
         Set<Map.Entry<Integer, ArrayList<Point2D>>> collisionSet = collisionMap.entrySet();
         int offset = 0;
@@ -181,13 +179,11 @@ class Individual {
                     collisionDist += chromosome.get(i).distance(chromosome.get(i + 1));
 
                 collisionDist += chromosome.get(collidedPath.getKey()).distance(collisionPoints.get(0));
-                isInObstacle = false;
             }
 
             // Adds to collision distance for one path
-            for (int i = offset; i < collisionPoints.size() - 1; i += 2) {
+            for (int i = offset; i < collisionPoints.size() - 1; i += 2)
                 collisionDist += collisionPoints.get(i).distance(collisionPoints.get(i + 1));
-            }
 
             // If node is in obstacle, then add distance from intersection to node
             if ((collidedPath.getValue().size() - offset) % 2 == 1) {
@@ -216,7 +212,7 @@ class Individual {
     }
 
     // Draws path of individual on the environment
-    void drawIndividual(DrawingPanel panel, Graphics2D g) {
+    public void drawIndividual(DrawingPanel panel, Graphics2D g) {
         DecimalFormat df = new DecimalFormat("000.000");
 
         drawEnvironment(panel, g);
@@ -282,7 +278,6 @@ class Individual {
                         (int) (-chromosome.get(collidedPath.getKey()).getY() * Constants.Y_SCALE + Constants.PANEL_HEIGHT) + Constants.MARGIN_THICKNESS / 2,
                         (int) (collisionPoints.get(0).getX() * Constants.X_SCALE) + Constants.MARGIN_THICKNESS / 2,
                         (int) (-collisionPoints.get(0).getY() * Constants.Y_SCALE + Constants.PANEL_HEIGHT) + Constants.MARGIN_THICKNESS / 2);
-                isInObstacle = false;
             }
 
             // Highlights collision areas
@@ -326,7 +321,7 @@ class Individual {
     // Mutation Operators (Add/Delete/Change Node and Shorten/Correct the Path)
 
     // Mutates individual
-    void mutate() {
+    public void mutate() {
         MutationOperator[] mutations = MutationOperator.values();
 
         // Performs random mutation
@@ -360,43 +355,43 @@ class Individual {
         cost();
     }
 
-    void addNode(int index, double x, double y) {
+    public void addNode(int index, double x, double y) {
         chromosome.add(index, new Point2D.Double(x, y));
         cost();
     }
 
-    void addNode(int index, Point2D coord) {
+    public void addNode(int index, Point2D coord) {
         chromosome.add(index, new Point2D.Double(coord.getX(), coord.getY()));
         cost();
     }
 
-    void addNode(double x, double y) {
+    public void addNode(double x, double y) {
         chromosome.add(new Point2D.Double(x, y));
         cost();
     }
 
-    void addNode(Point2D coord) {
+    public void addNode(Point2D coord) {
         chromosome.add(new Point2D.Double(coord.getX(), coord.getY()));
         cost();
     }
 
-    void deleteNode(int index) {
+    public void deleteNode(int index) {
         chromosome.remove(index);
         cost();
     }
 
-    void changeNode(int index, double x, double y) {
+    public void changeNode(int index, double x, double y) {
         chromosome.set(index, new Point2D.Double(x, y));
         cost();
     }
 
-    void changeNode(int index, Point2D coord) {
+    public void changeNode(int index, Point2D coord) {
         chromosome.set(index, new Point2D.Double(coord.getX(), coord.getY()));
         cost();
     }
 
     // Removes unnecessary coordinates in individual
-    void shortenPath() {
+    public void shortenPath() {
         boolean isShortest;
 
         do {
@@ -442,23 +437,23 @@ class Individual {
 
     /* Getters */
 
-    ArrayList<Point2D> getChromosome() {
+    public ArrayList<Point2D> getChromosome() {
         return chromosome;
     }
 
-    double getCost() {
+    public double getCost() {
         return cost;
     }
 
-    Point2D getNode(int index) {
+    public Point2D getNode(int index) {
         return chromosome.get(index);
     }
 
-    Line2D getPath(int index) {
+    public Line2D getPath(int index) {
         return new Line2D.Double(chromosome.get(index), chromosome.get(index + 1));
     }
 
-    int getLength() {
+    public int getLength() {
         return chromosome.size();
     }
 }

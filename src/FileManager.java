@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-class FileManager {
+public class FileManager {
 
     private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
     private Obstacle[] obstaclesArr;
@@ -43,7 +43,7 @@ class FileManager {
             obstaclesArr[i] = obstacles.get(i);
     }
 
-    Obstacle[] getObstacles() {
+    public Obstacle[] getObstacles() {
         return obstaclesArr;
     }
 }

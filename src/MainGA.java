@@ -7,9 +7,8 @@ import java.io.IOException;
 
 import java.text.DecimalFormat;
 
-class MainGA {
+public class MainGA {
     public static void main(String[] args) throws IOException {
-        Population optimizedPop;
         String selectionMethod = "TOS";
         String trialName = selectionMethod + "-INTELLIGENT";
 
@@ -44,8 +43,7 @@ class MainGA {
 
             System.out.println("\n**** " + trialName + " experiment successfully executed ****");
         } else {
-            optimizedPop = performGA();
-            optimizedPop.printStatistics();
+            Population optimizedPop = performGA();
         }
     }
 
@@ -137,9 +135,10 @@ class MainGA {
         duration = -duration + System.nanoTime();
 
         // Print summary of genetic algorithm
-        System.out.println("\nDuration: \t" + duration * Math.pow(10, -9) + " seconds");
-        System.out.println("Generation: \t" + generation);
-        System.out.println("Speed of GA: \t" + generation / (duration * Math.pow(10, -9)) + " generations / second");
+        currentGen.printStatistics();
+        System.out.println("\nExecution Time: \t" + duration * Math.pow(10, -9) + " seconds");
+        System.out.println("Generation: \t\t" + generation);
+        System.out.println("Speed of GA: \t\t" + generation / (duration * Math.pow(10, -9)) + " generations / second");
 
         return currentGen;
     }

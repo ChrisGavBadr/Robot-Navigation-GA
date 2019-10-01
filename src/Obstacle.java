@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
 
 import java.util.ArrayList;
 
-class Obstacle extends Polygon {
+public class Obstacle extends Polygon {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,7 +37,7 @@ class Obstacle extends Polygon {
     }
 
     // Draws obstacle on the environment
-    void drawObstacle(DrawingPanel panel, Graphics2D g) {
+    public void drawObstacle(DrawingPanel panel, Graphics2D g) {
         ArrayList<Line2D> boundaries = getBoundaries();
 
         for (Line2D boundary : boundaries) {
