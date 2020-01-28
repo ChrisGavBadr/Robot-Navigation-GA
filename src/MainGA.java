@@ -130,7 +130,7 @@ public class MainGA {
 
             currentGen = nextGen;
             generation++;
-        } while (currentGen.getFittest().getCost() > Constants.FITNESS_LIMIT || !currentGen.getFittest().isFeasible());
+        } while (currentGen.getFittest().getCost() > Constants.FITNESS_LIMIT || !currentGen.getFittest().isFeasible() /*generation < Constants.GENERATION_LIMIT*/);
 
         duration = -duration + System.nanoTime();
 

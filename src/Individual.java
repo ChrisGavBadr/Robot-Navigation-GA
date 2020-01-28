@@ -11,10 +11,6 @@ import java.util.Set;
 
 import java.text.DecimalFormat;
 
-enum MutationOperator {
-    ADD, DELETE, CHANGE, SHORTEN/*, CORRECT*/
-}
-
 public class Individual {
 
     private ArrayList<Point2D> chromosome = new ArrayList<Point2D>();
@@ -27,7 +23,7 @@ public class Individual {
     Individual(boolean initialize, int length) {
         chromosome.add(new Point2D.Double(0, 0));
 
-        // Initializes Individual with randomly generates coordinates
+        // Initializes Individual with randomly generated coordinates
         if (initialize) {
             for (int i = 1; i < length - 1; i++)
                 chromosome.add(new Point2D.Double(Math.random() * Constants.MAX_X_VALUE, Math.random() * Constants.MAX_Y_VALUE));

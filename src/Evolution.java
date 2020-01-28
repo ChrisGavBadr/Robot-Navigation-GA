@@ -1,18 +1,6 @@
 
 import java.util.Arrays;
 
-enum CSMethod {
-    RWS, SUS, LRS, TOS, TRS
-}
-
-enum SelectionMethod {
-    RWS, SUS, LRS, TOS, TRS, CS
-}
-
-enum CrossoverOperator {
-    ONE_POINT, K_POINT, INTELLIGENT
-}
-
 public class Evolution {
 
     // Evolves population to next generation
