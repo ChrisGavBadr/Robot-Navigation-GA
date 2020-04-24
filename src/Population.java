@@ -16,25 +16,30 @@ public class Population {
                         Constants.MIN_CHROMOSOME_LENGTH + 1) + Constants.MIN_CHROMOSOME_LENGTH));
             }
 
-            quickSortPop(0, population.length - 1);
+            quickSort();
         }
     }
 
     /* Important Functions */
 
     // Quick Sorts population by fitness
-    public void quickSortPop(int low, int high) {
+    public void quickSort() {
+        quickSort(0, population.length - 1);
+    }
+
+    // Recursive function for Quick Sort
+    private void quickSort(int low, int high) {
         if (low < high) {
             int pi = partition(low, high);
 
-            quickSortPop(low, pi - 1);
-            quickSortPop(pi + 1, high);
+            quickSort(low, pi - 1);
+            quickSort(pi + 1, high);
         }
     }
 
-    // Used for Quick Sort
+    // Partitions population
     private int partition(int low, int high) {
-        double pivot = population[high].getCost();
+        double pivot = population[high - 1].getCost();
         int i = low - 1;
 
         for (int j = low; j < high; j++) {
@@ -143,7 +148,7 @@ public class Population {
     }
 
     public Individual getMedian() {
-        quickSortPop(0, population.length - 1);
+        quickSort();
         return population[(population.length - 1) / 2];
     }
 

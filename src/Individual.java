@@ -17,8 +17,7 @@ public class Individual {
     private double cost = 0;
 
     // Individual Constructor
-    Individual() {
-    }
+    Individual() { }
 
     Individual(boolean initialize, int length) {
         chromosome.add(new Point2D.Double(0, 0));
